@@ -8,7 +8,7 @@ export default function Header() {
       <img src={logo} alt="MyQuestions" widht="201" />
 
       <S.InputSearchContainer>
-        <input type="text" placeholder="Pesquisar pergunta" />
+        <input type="text" placeholder="Search a question" />
       </S.InputSearchContainer>
     </S.Container>
   );
