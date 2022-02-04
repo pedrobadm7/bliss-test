@@ -29,3 +29,76 @@ justify-content: space-between;
     }
   }
 `;
+
+export const ListContainer = styled.div`
+  margin-top: 24px;
+
+  header {
+    margin-bottom: 8px;
+    .sort-button {
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-right: 8px;
+      font-weight: bold;
+      color: ${({ theme }) => theme.colors.primary.main}
+    }
+  }
+  }
+`;
+
+export const Card = styled.div`
+  width: 100%;
+  background: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
+  padding: 16px;
+  border-radius: 4px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  & + & {
+    margin-top: 16px;
+  }
+
+  .info {
+    width: 100%;
+
+    .question-name {
+    display: flex;
+    flex-direction: column;
+
+      span {
+        width: 16%;
+        margin: 8px 0 16px 0;
+        padding-left: 4px;
+        background: ${({ theme }) => theme.colors.primary.lighter};
+        color: ${({ theme }) => theme.colors.primary.main};
+        border-radius: 8px;
+        font-size: 14px;
+      }
+    }
+
+    .question-list {
+        display: flex;
+        justify-content: space-between;
+      li {
+        display: flex;
+        flex-direction: column;
+        padding: 0 4px 0 4px;
+        background: ${({ theme }) => theme.colors.primary.lighter};
+        color: ${({ theme }) => theme.colors.gray[900]};
+        border-radius: 8px;
+
+      }
+    }
+
+    .actions {
+      display: flex;
+    }
+
+  }
+`;
