@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import * as S from './styles';
 
 import arrow from '../../assets/images/icons/arrow.svg';
@@ -11,7 +12,7 @@ export default function QuestionListScreen() {
       </S.InputSearchContainer>
       <S.Header>
         <strong>3 Questions</strong>
-        <a href="/">New Question</a>
+        <Link to="/new">New Question</Link>
       </S.Header>
 
       <S.ListContainer>
@@ -49,75 +50,12 @@ export default function QuestionListScreen() {
           </div>
 
           <div className="actions">
-            <a href="/">
+            <Link to="/questions/123">
               <img src={edit} alt="" />
-            </a>
+            </Link>
           </div>
         </S.Card>
-        <S.Card>
-          <div className="info">
-            <div className="question-name">
-              <strong>Favourite programming language?</strong>
-              <span>Choices:</span>
-            </div>
-            <div className="question-list">
-              <li>
-                <span>Swift</span>
-                <span>Votes: 2048</span>
-              </li>
-              <li>
-                <span>Python</span>
-                <span>Votes: 1024</span>
-              </li>
-              <li>
-                <span>Objective-C</span>
-                <span>Votes: 512</span>
-              </li>
-              <li>
-                <span>Ruby</span>
-                <span>Votes: 256</span>
-              </li>
-            </div>
-          </div>
 
-          <div className="actions">
-            <a href="/">
-              <img src={edit} alt="" />
-            </a>
-          </div>
-        </S.Card>
-        <S.Card>
-          <div className="info">
-            <div className="question-name">
-              <strong>Favourite programming language?</strong>
-              <span>Choices:</span>
-            </div>
-            <div className="question-list">
-              <li>
-                <span>Swift</span>
-                <span>Votes: 2048</span>
-              </li>
-              <li>
-                <span>Python</span>
-                <span>Votes: 1024</span>
-              </li>
-              <li>
-                <span>Objective-C</span>
-                <span>Votes: 512</span>
-              </li>
-              <li>
-                <span>Ruby</span>
-                <span>Votes: 256</span>
-              </li>
-            </div>
-          </div>
-
-          <div className="actions">
-            <a href="/">
-              <img src={edit} alt="" />
-            </a>
-          </div>
-        </S.Card>
       </S.ListContainer>
     </S.Container>
   );
