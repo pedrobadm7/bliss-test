@@ -27,6 +27,36 @@ export default function QuestionForm({ buttonLabel }) {
     }
   }
 
+  function handleChoiceChange(event, fieldName) {
+    const { value } = event.target;
+
+    switch (fieldName) {
+      case 'firstChoice':
+        setFirstChoice(value);
+        break;
+      case 'secondChoice':
+        setSecondChoice(value);
+        break;
+      case 'thirdChoice':
+        setThirdChoice(value);
+        break;
+      case 'fourthChoice':
+        setFourthChoice(value);
+        break;
+      default:
+        break;
+    }
+
+    if (!value) {
+      setErrors((prevState) => [
+        ...prevState,
+        { field: fieldName, message: 'This field must be filled' },
+      ]);
+    } else {
+      setErrors((prevState) => prevState.filter((error) => error.field !== fieldName));
+    }
+  }
+
   console.log({ errors });
 
   function handleSubmit(event) {
@@ -54,7 +84,7 @@ export default function QuestionForm({ buttonLabel }) {
         <Input
           placeholder="Choice 1"
           value={firstChoice}
-          onChange={(event) => setFirstChoice(event.target.value)}
+          onChange={(event) => handleChoiceChange(event, 'firstChoice')}
         />
       </FormGroup>
 
@@ -62,7 +92,7 @@ export default function QuestionForm({ buttonLabel }) {
         <Input
           placeholder="Choice 2"
           value={secondChoice}
-          onChange={(event) => setSecondChoice(event.target.value)}
+          onChange={(event) => handleChoiceChange(event, 'secondChoice')}
         />
       </FormGroup>
 
@@ -70,7 +100,7 @@ export default function QuestionForm({ buttonLabel }) {
         <Input
           placeholder="Choice 3"
           value={thirdChoice}
-          onChange={(event) => setThirdChoice(event.target.value)}
+          onChange={(event) => handleChoiceChange(event, 'thirdChoice')}
         />
       </FormGroup>
 
@@ -78,7 +108,7 @@ export default function QuestionForm({ buttonLabel }) {
         <Input
           placeholder="Choice 4"
           value={fourthChoice}
-          onChange={(event) => setFourthChoice(event.target.value)}
+          onChange={(event) => handleChoiceChange(event, 'fourthChoice')}
         />
       </FormGroup>
 
