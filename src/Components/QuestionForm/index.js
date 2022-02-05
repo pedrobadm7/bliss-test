@@ -6,24 +6,24 @@ import * as S from './styles';
 import Input from '../Input';
 import Button from '../Button';
 
+import useErrors from '../../hooks/useErrors';
+
 export default function QuestionForm({ buttonLabel }) {
   const [question, setQuestion] = useState('');
   const [firstChoice, setFirstChoice] = useState('');
   const [secondChoice, setSecondChoice] = useState('');
   const [thirdChoice, setThirdChoice] = useState('');
   const [fourthChoice, setFourthChoice] = useState('');
-  const [errors, setErrors] = useState([]);
+
+  const { setError, removeError, getErrorMessageByFieldName } = useErrors();
 
   function handleQuestionChange(event) {
     setQuestion(event.target.value);
 
     if (!event.target.value) {
-      setErrors((prevState) => [
-        ...prevState,
-        { field: 'question', message: 'This field must be filled with a question' },
-      ]);
+      setError({ field: 'question', message: 'This field must be filled with a question' });
     } else {
-      setErrors((prevState) => prevState.filter((error) => error.field !== 'question'));
+      removeError('question');
     }
   }
 
@@ -48,12 +48,9 @@ export default function QuestionForm({ buttonLabel }) {
     }
 
     if (!value) {
-      setErrors((prevState) => [
-        ...prevState,
-        { field: fieldName, message: 'This field must be filled with a choice' },
-      ]);
+      setError({ field: fieldName, message: 'This field must be filled with a choice' });
     } else {
-      setErrors((prevState) => prevState.filter((error) => error.field !== fieldName));
+      removeError(fieldName);
     }
   }
 
@@ -66,10 +63,6 @@ export default function QuestionForm({ buttonLabel }) {
       thirdChoice,
       fourthChoice,
     });
-  }
-
-  function getErrorMessageByFieldName(fieldName) {
-    return errors.find((error) => error.field === fieldName)?.message;
   }
 
   return (
