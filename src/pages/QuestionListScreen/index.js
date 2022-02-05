@@ -4,12 +4,14 @@ import * as S from './styles';
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
-import Modal from '../../Components/Modal';
+import Loader from '../../Components/Loader';
+// import Modal from '../../Components/Modal';
 
 export default function QuestionListScreen() {
   return (
     <S.Container>
-      <Modal danger />
+      {/* <Modal danger /> */}
+      <Loader />
 
       <S.InputSearchContainer>
         <input type="text" placeholder="Search a question" />
