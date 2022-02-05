@@ -115,9 +115,15 @@ export const Card = styled.div`
       }
     }
 
-    .actions {
-      display: flex;
-    }
-
   }
+
+  .actions {
+
+      display: flex;
+      button {
+            background: transparent;
+            border: none;
+            margin-left: 8px;
+        }
+    }
 `;
