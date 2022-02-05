@@ -86,13 +86,17 @@ export const Card = styled.div`
 
   .info {
     width: 100%;
+    display: flex;
+    flex-direction: column;
 
     .question-name {
     display: flex;
     flex-direction: column;
 
       span {
-        width: 16%;
+        width: 100%;
+        min-width: 50px;
+        max-width: 75px;
         margin: 8px 0 16px 0;
         padding-left: 4px;
         background: ${({ theme }) => theme.colors.primary.lighter};
@@ -102,7 +106,7 @@ export const Card = styled.div`
       }
     }
 
-    .question-list {
+    .choice-list {
         display: flex;
         justify-content: space-between;
       li {
@@ -112,7 +116,7 @@ export const Card = styled.div`
         background: ${({ theme }) => theme.colors.primary.lighter};
         color: ${({ theme }) => theme.colors.gray[900]};
         border-radius: 8px;
-
+        font-size: 14px;
       }
     }
 

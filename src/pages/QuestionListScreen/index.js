@@ -32,7 +32,10 @@ export default function QuestionListScreen() {
       </S.InputSearchContainer>
 
       <S.Header>
-        <strong>3 Questions</strong>
+        <strong>
+          {questions.length}
+          {questions.length === 1 ? ' question' : ' questions'}
+        </strong>
         <Link to="/new">New Question</Link>
       </S.Header>
 
@@ -44,43 +47,34 @@ export default function QuestionListScreen() {
           </button>
         </header>
 
-        <S.Card>
-          <div className="info">
-            <div className="question-name">
-              <strong>Favourite programming language?</strong>
-              <span>Choices:</span>
+        {questions.map((question) => (
+          <S.Card key={question.id}>
+            <div className="info">
+              <div className="question-name">
+                <strong>{question.question}</strong>
+                <span>Choices:</span>
+              </div>
+              <div className="choice-list">
+                {question.choices.map((choice) => (
+                  <li key={choice.index}>
+                    <span>{choice.choice}</span>
+                    <span>{choice.votes}</span>
+                  </li>
+                ))}
+              </div>
             </div>
-            <div className="question-list">
-              <li>
-                <span>Swift</span>
-                <span>Votes: 2048</span>
-              </li>
-              <li>
-                <span>Python</span>
-                <span>Votes: 1024</span>
-              </li>
-              <li>
-                <span>Objective-C</span>
-                <span>Votes: 512</span>
-              </li>
-              <li>
-                <span>Ruby</span>
-                <span>Votes: 256</span>
-              </li>
+            <div className="actions">
+              <Link to={`/questions/${question.id}`}>
+                <img src={edit} alt="Edit" />
+              </Link>
+              <button
+                type="button"
+              >
+                <img src={trash} alt="Delete" />
+              </button>
             </div>
-          </div>
-
-          <div className="actions">
-            <Link to="/questions/123">
-              <img src={edit} alt="Edit" />
-            </Link>
-            <button
-              type="button"
-            >
-              <img src={trash} alt="Delete" />
-            </button>
-          </div>
-        </S.Card>
+          </S.Card>
+        ))}
 
       </S.ListContainer>
     </S.Container>
