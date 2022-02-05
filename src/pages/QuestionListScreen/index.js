@@ -9,7 +9,7 @@ import Modal from '../../Components/Modal';
 export default function QuestionListScreen() {
   return (
     <S.Container>
-      <Modal />
+      <Modal danger />
 
       <S.InputSearchContainer>
         <input type="text" placeholder="Search a question" />
