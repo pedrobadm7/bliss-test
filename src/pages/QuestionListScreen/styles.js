@@ -28,6 +28,7 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 margin-top: 32px;
+margin-bottom: 32px;
 
   strong {
     color: #222;
@@ -50,26 +51,6 @@ margin-top: 32px;
   }
 `;
 
-export const ListContainer = styled.div`
-  margin-top: 24px;
-
-  header {
-    margin-bottom: 8px;
-    .sort-button {
-    background: transparent;
-    border: none;
-    display: flex;
-    align-items: center;
-
-    span {
-      margin-right: 8px;
-      font-weight: bold;
-      color: ${({ theme }) => theme.colors.primary.main}
-    }
-  }
-  }
-`;
-
 export const Card = styled.div`
   width: 100%;
   background: #fff;
@@ -79,6 +60,7 @@ export const Card = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  margin-bottom: 32px;
 
   & + & {
     margin-top: 16px;
