@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
   a {
+    width: 15px;
     display: flex;
     align-items: center;
     text-decoration: none;
