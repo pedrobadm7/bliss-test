@@ -3,13 +3,18 @@ import * as S from './styles';
 
 import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
+import trash from '../../assets/images/icons/trash.svg';
+import Modal from '../../Components/Modal';
 
 export default function QuestionListScreen() {
   return (
     <S.Container>
+      <Modal />
+
       <S.InputSearchContainer>
         <input type="text" placeholder="Search a question" />
       </S.InputSearchContainer>
+
       <S.Header>
         <strong>3 Questions</strong>
         <Link to="/new">New Question</Link>
@@ -51,8 +56,13 @@ export default function QuestionListScreen() {
 
           <div className="actions">
             <Link to="/questions/123">
-              <img src={edit} alt="" />
+              <img src={edit} alt="Edit" />
             </Link>
+            <button
+              type="button"
+            >
+              <img src={trash} alt="Delete" />
+            </button>
           </div>
         </S.Card>
 
