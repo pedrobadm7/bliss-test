@@ -12,6 +12,22 @@ export default function QuestionForm({ buttonLabel }) {
   const [secondChoice, setSecondChoice] = useState('');
   const [thirdChoice, setThirdChoice] = useState('');
   const [fourthChoice, setFourthChoice] = useState('');
+  const [errors, setErrors] = useState([]);
+
+  function handleQuestionChange(event) {
+    setQuestion(event.target.value);
+
+    if (!event.target.value) {
+      setErrors((prevState) => [
+        ...prevState,
+        { field: 'question', message: 'This field must be filled' },
+      ]);
+    } else {
+      setErrors((prevState) => prevState.filter((error) => error.field !== 'question'));
+    }
+  }
+
+  console.log({ errors });
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -30,7 +46,7 @@ export default function QuestionForm({ buttonLabel }) {
         <Input
           placeholder="Question"
           value={question}
-          onChange={(event) => setQuestion(event.target.value)}
+          onChange={handleQuestionChange}
         />
       </FormGroup>
 
