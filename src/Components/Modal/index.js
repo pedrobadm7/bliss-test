@@ -1,10 +1,12 @@
+import ReactDOM from 'react-dom';
+
 import PropTypes from 'prop-types';
 import * as S from './styles';
 
 import Button from '../Button';
 
 export default function Modal({ danger }) {
-  return (
+  return ReactDOM.createPortal(
     <S.Overlay>
       <S.Container danger={danger}>
         <h1>Modal title</h1>
@@ -20,7 +22,8 @@ export default function Modal({ danger }) {
         </S.Footer>
 
       </S.Container>
-    </S.Overlay>
+    </S.Overlay>,
+    document.getElementById('modal-root'),
   );
 }
 
