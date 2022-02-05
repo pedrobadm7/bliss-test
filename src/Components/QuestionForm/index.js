@@ -56,13 +56,13 @@ export default function QuestionForm({ buttonLabel }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log({
-      question,
-      firstChoice,
-      secondChoice,
-      thirdChoice,
-      fourthChoice,
-    });
+    // console.log({
+    //   question,
+    //   firstChoice,
+    //   secondChoice,
+    //   thirdChoice,
+    //   fourthChoice,
+    // });
   }
 
   return (
