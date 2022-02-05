@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import * as S from './styles';
 
 import arrow from '../../assets/images/icons/arrow.svg';
@@ -8,6 +9,19 @@ import trash from '../../assets/images/icons/trash.svg';
 // import Modal from '../../Components/Modal';
 
 export default function QuestionListScreen() {
+  const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    fetch('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questions?limit=10&offset=10')
+      .then(async (response) => {
+        const json = await response.json();
+        setQuestions(json);
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  }, []);
+
   return (
     <S.Container>
       {/* <Modal danger /> */}
