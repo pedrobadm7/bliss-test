@@ -15,7 +15,19 @@ export default function QuestionForm({ buttonLabel }) {
   const [thirdChoice, setThirdChoice] = useState('');
   const [fourthChoice, setFourthChoice] = useState('');
 
-  const { setError, removeError, getErrorMessageByFieldName } = useErrors();
+  const {
+    errors,
+    setError,
+    removeError,
+    getErrorMessageByFieldName,
+  } = useErrors();
+
+  const isFormValid = question
+  && firstChoice
+  && secondChoice
+  && thirdChoice
+  && fourthChoice
+  && errors.length === 0;
 
   function handleQuestionChange(event) {
     setQuestion(event.target.value);
@@ -69,7 +81,7 @@ export default function QuestionForm({ buttonLabel }) {
     <S.Form onSubmit={handleSubmit}>
       <FormGroup error={getErrorMessageByFieldName('question')}>
         <Input
-          placeholder="Question"
+          placeholder="Question *"
           error={getErrorMessageByFieldName('question')}
           value={question}
           onChange={handleQuestionChange}
@@ -78,7 +90,7 @@ export default function QuestionForm({ buttonLabel }) {
 
       <FormGroup error={getErrorMessageByFieldName('firstChoice')}>
         <Input
-          placeholder="Choice 1"
+          placeholder="Choice 1 *"
           error={getErrorMessageByFieldName('firstChoice')}
           value={firstChoice}
           onChange={(event) => handleChoiceChange(event, 'firstChoice')}
@@ -87,7 +99,7 @@ export default function QuestionForm({ buttonLabel }) {
 
       <FormGroup error={getErrorMessageByFieldName('secondChoice')}>
         <Input
-          placeholder="Choice 2"
+          placeholder="Choice 2 *"
           error={getErrorMessageByFieldName('secondChoice')}
           value={secondChoice}
           onChange={(event) => handleChoiceChange(event, 'secondChoice')}
@@ -96,7 +108,7 @@ export default function QuestionForm({ buttonLabel }) {
 
       <FormGroup error={getErrorMessageByFieldName('thirdChoice')}>
         <Input
-          placeholder="Choice 3"
+          placeholder="Choice 3 *"
           error={getErrorMessageByFieldName('thirdChoice')}
           value={thirdChoice}
           onChange={(event) => handleChoiceChange(event, 'thirdChoice')}
@@ -105,7 +117,7 @@ export default function QuestionForm({ buttonLabel }) {
 
       <FormGroup error={getErrorMessageByFieldName('fourthChoice')}>
         <Input
-          placeholder="Choice 4"
+          placeholder="Choice 4 *"
           error={getErrorMessageByFieldName('fourthChoice')}
           value={fourthChoice}
           onChange={(event) => handleChoiceChange(event, 'fourthChoice')}
@@ -113,7 +125,7 @@ export default function QuestionForm({ buttonLabel }) {
       </FormGroup>
 
       <S.ButtonContainer>
-        <Button type="submit">
+        <Button type="submit" disabled={!isFormValid}>
           {buttonLabel}
         </Button>
       </S.ButtonContainer>
