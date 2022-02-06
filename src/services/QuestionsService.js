@@ -6,7 +6,7 @@ class QuestionsService {
   }
 
   async listQuestions(LIMIT, OFF_SET, searchTerm = '') {
-    return this.httpClient.get(`/questions?limit=${LIMIT}&offset=${OFF_SET}&filter=${searchTerm}`);
+    return this.httpClient.get(`/questions?limit=${LIMIT}&offset=${OFF_SET}&filter=${searchTerm}`, '/health');
   }
 }
 
