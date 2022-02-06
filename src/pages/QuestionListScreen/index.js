@@ -7,12 +7,17 @@ import trash from '../../assets/images/icons/trash.svg';
 
 export default function QuestionListScreen() {
   const [questions, setQuestions] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredQuestions = questions.filter((question) => (
+    question.question.toLowerCase().includes(searchTerm.toLowerCase())
+  ));
 
   const LIMIT = 10;
   const OFF_SET = 10;
 
   useEffect(() => {
-    fetch(`https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questions?limit=${LIMIT}&offset=${OFF_SET}&filter`)
+    fetch(`https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questions?limit=${LIMIT}&offset=${OFF_SET}&filter=${searchTerm}`)
       .then(async (response) => {
         const json = await response.json();
         setQuestions(json);
@@ -20,24 +25,33 @@ export default function QuestionListScreen() {
       .catch((error) => {
         console.log('error', error);
       });
-  }, []);
+  }, [searchTerm]);
+
+  function handleChangeSearchTerm(event) {
+    setSearchTerm(event.target.value);
+  }
 
   return (
     <S.Container>
 
       <S.InputSearchContainer>
-        <input type="text" placeholder="Search a question" />
+        <input
+          value={searchTerm}
+          type="text"
+          placeholder="Search a question"
+          onChange={handleChangeSearchTerm}
+        />
       </S.InputSearchContainer>
 
       <S.Header>
         <strong>
-          {questions.length}
-          {questions.length === 1 ? ' question' : ' questions'}
+          {filteredQuestions.length}
+          {filteredQuestions.length === 1 ? ' question' : ' questions'}
         </strong>
         <Link to="/new">New Question</Link>
       </S.Header>
 
-      {questions.map((question) => (
+      {filteredQuestions.map((question) => (
         <S.Card key={question.id}>
           <div className="info">
             <div className="question-name">
@@ -46,7 +60,7 @@ export default function QuestionListScreen() {
             </div>
             <div className="choice-list">
               {question.choices.map((choice) => (
-                <li key={choice.index}>
+                <li>
                   <span>{choice.choice}</span>
                   <span>{choice.votes}</span>
                 </li>
