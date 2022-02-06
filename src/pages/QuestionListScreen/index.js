@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import * as S from './styles';
 
 import edit from '../../assets/images/icons/edit.svg';
@@ -9,9 +9,9 @@ export default function QuestionListScreen() {
   const [questions, setQuestions] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredQuestions = questions.filter((question) => (
+  const filteredQuestions = useMemo(() => questions.filter((question) => (
     question.question.toLowerCase().includes(searchTerm.toLowerCase())
-  ));
+  )), [questions, searchTerm]);
 
   const LIMIT = 10;
   const OFF_SET = 10;
