@@ -10,6 +10,7 @@ import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 import sad from '../../assets/images/icons/sad.svg';
 import box from '../../assets/images/icons/box.svg';
+import magnifierQuestion from '../../assets/images/icons/magnifierQuestion.svg';
 
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
@@ -115,6 +116,14 @@ export default function QuestionListScreen() {
               button above to register your first one!
             </p>
           </S.EmptyListContainer>
+          )}
+
+          {(questions.length > 0 && filteredQuestions < 1) && (
+            <S.SearchNotFoundContainer>
+              <img src={magnifierQuestion} alt="Magnifier Question" />
+
+              <span>No results were found for <strong>&quot;{searchTerm}&quot;</strong>.</span>
+            </S.SearchNotFoundContainer>
           )}
 
           {filteredQuestions.map((question) => (
