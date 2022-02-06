@@ -5,9 +5,12 @@ import * as S from './styles';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 
+import Loader from '../../Components/Loader';
+
 export default function QuestionListScreen() {
   const [questions, setQuestions] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const filteredQuestions = useMemo(() => questions.filter((question) => (
     question.question.toLowerCase().includes(searchTerm.toLowerCase())
@@ -17,13 +20,18 @@ export default function QuestionListScreen() {
   const OFF_SET = 10;
 
   useEffect(() => {
-    fetch(`https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questions?limit=${LIMIT}&offset=${OFF_SET}&filter=${searchTerm}`)
+    setIsLoading(true);
+
+    fetch(`https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questionsSSS?limit=${LIMIT}&offset=${OFF_SET}&filter=${searchTerm}`)
       .then(async (response) => {
         const json = await response.json();
         setQuestions(json);
       })
       .catch((error) => {
         console.log('error', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [searchTerm]);
 
@@ -33,6 +41,7 @@ export default function QuestionListScreen() {
 
   return (
     <S.Container>
+      <Loader isLoading={isLoading} />
 
       <S.InputSearchContainer>
         <input
