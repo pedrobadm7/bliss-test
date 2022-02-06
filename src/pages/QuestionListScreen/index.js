@@ -20,19 +20,21 @@ export default function QuestionListScreen() {
   const OFF_SET = 10;
 
   useEffect(() => {
-    setIsLoading(true);
+    async function loadQuestions() {
+      try {
+        setIsLoading(true);
+        const response = await fetch(`https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questions?limit=${LIMIT}&offset=${OFF_SET}&filter=${searchTerm}`);
 
-    fetch(`https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questionsSSS?limit=${LIMIT}&offset=${OFF_SET}&filter=${searchTerm}`)
-      .then(async (response) => {
         const json = await response.json();
         setQuestions(json);
-      })
-      .catch((error) => {
-        console.log('error', error);
-      })
-      .finally(() => {
+      } catch (error) {
+        console.log('error: ', error);
+      } finally {
         setIsLoading(false);
-      });
+      }
+    }
+
+    loadQuestions();
   }, [searchTerm]);
 
   function handleChangeSearchTerm(event) {
