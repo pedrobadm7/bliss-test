@@ -6,6 +6,7 @@ import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 
 import Loader from '../../components/Loader';
+import QuestionsService from '../../services/QuestionsService';
 
 export default function QuestionListScreen() {
   const [questions, setQuestions] = useState([]);
@@ -23,10 +24,10 @@ export default function QuestionListScreen() {
     async function loadQuestions() {
       try {
         setIsLoading(true);
-        const response = await fetch(`https://private-bbbe9-blissrecruitmentapi.apiary-mock.com/questions?limit=${LIMIT}&offset=${OFF_SET}&filter=${searchTerm}`);
 
-        const json = await response.json();
-        setQuestions(json);
+        const questionsList = await QuestionsService.listQuestions(LIMIT, OFF_SET, searchTerm);
+
+        setQuestions(questionsList);
       } catch (error) {
         console.log('error: ', error);
       } finally {
