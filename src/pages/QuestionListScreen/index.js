@@ -5,7 +5,7 @@ import * as S from './styles';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 
-import Loader from '../../Components/Loader';
+import Loader from '../../components/Loader';
 
 export default function QuestionListScreen() {
   const [questions, setQuestions] = useState([]);

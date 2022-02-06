@@ -1,5 +1,5 @@
-import PageHeader from '../../Components/PageHeader';
-import QuestionForm from '../../Components/QuestionForm';
+import PageHeader from '../../components/PageHeader';
+import QuestionForm from '../../components/QuestionForm';
 
 export default function DetailsScreen() {
   return (
