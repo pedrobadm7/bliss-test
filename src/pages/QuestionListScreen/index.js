@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState, useMemo } from 'react';
+import {
+  useEffect, useState, useMemo, useCallback,
+} from 'react';
 import * as S from './styles';
 
 import edit from '../../assets/images/icons/edit.svg';
@@ -23,7 +25,7 @@ export default function QuestionListScreen() {
   const LIMIT = 10;
   const OFF_SET = 10;
 
-  async function loadQuestions() {
+  const loadQuestions = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -36,11 +38,11 @@ export default function QuestionListScreen() {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [searchTerm]);
 
   useEffect(() => {
     loadQuestions();
-  }, [searchTerm]);
+  }, [loadQuestions]);
 
   function handleChangeSearchTerm(event) {
     setSearchTerm(event.target.value);
