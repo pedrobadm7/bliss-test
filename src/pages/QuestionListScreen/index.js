@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable no-nested-ternary */
 import { Link } from 'react-router-dom';
 import {
   useEffect, useState, useMemo, useCallback,
@@ -7,6 +9,7 @@ import * as S from './styles';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 import sad from '../../assets/images/icons/sad.svg';
+import box from '../../assets/images/icons/box.svg';
 
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
@@ -56,6 +59,7 @@ export default function QuestionListScreen() {
     <S.Container>
       <Loader isLoading={isLoading} />
 
+      {questions.length > 0 && (
       <S.InputSearchContainer>
         <input
           value={searchTerm}
@@ -64,9 +68,20 @@ export default function QuestionListScreen() {
           onChange={handleChangeSearchTerm}
         />
       </S.InputSearchContainer>
+      )}
 
-      <S.Header hasError={hasError}>
-        {!hasError && (
+      <S.Header
+        justifyContent={
+          hasError
+            ? 'flex-end'
+            : (
+              questions.length > 0
+                ? 'space-between'
+                : 'center'
+            )
+        }
+      >
+        {(!hasError && questions.length > 0) && (
         <strong>
           {filteredQuestions.length}
           {filteredQuestions.length === 1 ? ' question' : ' questions'}
@@ -90,6 +105,18 @@ export default function QuestionListScreen() {
 
       {!hasError && (
         <>
+          {questions.length < 1 && !isLoading && (
+          <S.EmptyListContainer>
+            <img src={box} alt="Box" />
+
+            <p>
+              You don&apos;t have any questions registered yet!
+              Click on the <strong> &quot;New question&quot; </strong>
+              button above to register your first one!
+            </p>
+          </S.EmptyListContainer>
+          )}
+
           {filteredQuestions.map((question) => (
             <S.Card key={question.id}>
               <div className="info">
