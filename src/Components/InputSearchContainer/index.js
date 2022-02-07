@@ -2,6 +2,7 @@ import propTypes from 'prop-types';
 import { useState } from 'react';
 
 import useDebounce from '../../hooks/useDebounce';
+import Button from '../Button';
 
 import * as S from './styles';
 
@@ -14,6 +15,11 @@ export default function InputSearchContainer({ value, onChange }) {
     debouncedChange(event.target.value);
   }
 
+  function handleClearInput() {
+    setDisplayValue('');
+    onChange('');
+  }
+
   return (
     <S.InputSearchContainer>
       <input
@@ -22,6 +28,14 @@ export default function InputSearchContainer({ value, onChange }) {
         placeholder="Search a question"
         onChange={handleChange}
       />
+      {displayValue && (
+        <Button
+          type="button"
+          onClick={handleClearInput}
+        >
+          Apagar busca
+        </Button>
+      )}
     </S.InputSearchContainer>
 
   );
