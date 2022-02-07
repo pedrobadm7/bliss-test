@@ -23,8 +23,6 @@ export default function QuestionListScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  console.log(searchTerm);
-
   const filteredQuestions = useMemo(() => questions.filter((question) => (
     question.question.toLowerCase().includes(searchTerm.toLowerCase())
   )), [questions, searchTerm]);
