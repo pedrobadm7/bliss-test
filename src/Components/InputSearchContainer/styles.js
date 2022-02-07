@@ -2,6 +2,11 @@ import styled from 'styled-components';
 
 export const InputSearchContainer = styled.div`
     width: 100%;
+    display: flex;
+
+    button {
+        margin-left: 10px;
+    }
 
     input {
         width: 100%;
