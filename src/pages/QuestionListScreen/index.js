@@ -15,12 +15,15 @@ import magnifierQuestion from '../../assets/images/icons/magnifierQuestion.svg';
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
 import QuestionsService from '../../services/QuestionsService';
+import InputSearchContainer from '../../components/InputSearchContainer';
 
 export default function QuestionListScreen() {
   const [questions, setQuestions] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+
+  console.log(searchTerm);
 
   const filteredQuestions = useMemo(() => questions.filter((question) => (
     question.question.toLowerCase().includes(searchTerm.toLowerCase())
@@ -48,10 +51,6 @@ export default function QuestionListScreen() {
     loadQuestions();
   }, [loadQuestions]);
 
-  function handleChangeSearchTerm(event) {
-    setSearchTerm(event.target.value);
-  }
-
   function handleTryAgain() {
     loadQuestions();
   }
@@ -61,14 +60,9 @@ export default function QuestionListScreen() {
       <Loader isLoading={isLoading} />
 
       {questions.length > 0 && (
-      <S.InputSearchContainer>
-        <input
-          value={searchTerm}
-          type="text"
-          placeholder="Search a question"
-          onChange={handleChangeSearchTerm}
-        />
-      </S.InputSearchContainer>
+
+      <InputSearchContainer value={searchTerm} onChange={(search) => setSearchTerm(search)} />
+
       )}
 
       <S.Header
