@@ -58,7 +58,12 @@ export default function QuestionListScreen() {
       <Loader isLoading={isLoading} />
 
       {questions.length > 0 && (
-      <InputSearchContainer value={searchTerm} onChange={(search) => setSearchTerm(search)} />
+      <InputSearchContainer
+        value={searchTerm}
+        onChange={(search) => setSearchTerm(search)}
+        questions={questions}
+        filteredQuestions={filteredQuestions}
+      />
 
       )}
 

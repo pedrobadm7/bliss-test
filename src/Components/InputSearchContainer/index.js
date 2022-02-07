@@ -6,7 +6,9 @@ import Button from '../Button';
 
 import * as S from './styles';
 
-export default function InputSearchContainer({ value, onChange }) {
+export default function InputSearchContainer({
+  value, onChange, questions, filteredQuestions,
+}) {
   const [displayValue, setDisplayValue] = useState(value);
   const debouncedChange = useDebounce(onChange, 500);
 
@@ -28,7 +30,7 @@ export default function InputSearchContainer({ value, onChange }) {
         placeholder="Search a question"
         onChange={handleChange}
       />
-      {displayValue && (
+      {displayValue && (questions.length > 0 && filteredQuestions < 1) && (
         <Button
           type="button"
           onClick={handleClearInput}
@@ -44,4 +46,8 @@ export default function InputSearchContainer({ value, onChange }) {
 InputSearchContainer.propTypes = {
   value: propTypes.string.isRequired,
   onChange: propTypes.func.isRequired,
+  questions: propTypes.string.isRequired,
+  filteredQuestions: propTypes.arrayOf(propTypes.shape({
+    question: propTypes.string.isRequired,
+  })).isRequired,
 };
