@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import FormGroup from '../FormGroup';
 import * as S from './styles';
 
@@ -7,6 +8,7 @@ import Input from '../Input';
 import Button from '../Button';
 
 import useErrors from '../../hooks/useErrors';
+import QuestionsService from '../../services/QuestionsService';
 
 export default function QuestionForm({ buttonLabel }) {
   const [question, setQuestion] = useState('');
@@ -14,6 +16,8 @@ export default function QuestionForm({ buttonLabel }) {
   const [secondChoice, setSecondChoice] = useState('');
   const [thirdChoice, setThirdChoice] = useState('');
   const [fourthChoice, setFourthChoice] = useState('');
+
+  const history = useHistory();
 
   const {
     errors,
@@ -68,13 +72,20 @@ export default function QuestionForm({ buttonLabel }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    // console.log({
-    //   question,
-    //   firstChoice,
-    //   secondChoice,
-    //   thirdChoice,
-    //   fourthChoice,
-    // });
+    QuestionsService.createQuestion({
+      question,
+      firstChoice,
+      secondChoice,
+      thirdChoice,
+      fourthChoice,
+    });
+
+    setQuestion('');
+    setFirstChoice('');
+    setSecondChoice('');
+    setThirdChoice('');
+    setFourthChoice('');
+    history.goBack();
   }
 
   return (
