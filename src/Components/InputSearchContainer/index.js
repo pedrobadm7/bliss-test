@@ -35,7 +35,7 @@ export default function InputSearchContainer({
           type="button"
           onClick={handleClearInput}
         >
-          Apagar busca
+          Clear search
         </Button>
       )}
     </S.InputSearchContainer>
