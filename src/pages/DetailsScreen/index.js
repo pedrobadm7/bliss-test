@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import { useState } from 'react';
 import Button from '../../components/Button';
 import PageHeader from '../../components/PageHeader';
+import QuestionsService from '../../services/QuestionsService';
 
 import * as S from './styles';
 
@@ -24,6 +25,10 @@ export default function DetailScreen(props) {
           };
         }
         return choice;
+      });
+      QuestionsService.updateQuestion({
+        ...item,
+        choices: newChoices,
       });
       return newChoices;
     });
@@ -64,6 +69,9 @@ DetailScreen.propTypes = {
     state: propTypes.shape({
       item: propTypes.shape({
         id: propTypes.number,
+        image_url: propTypes.string,
+        published_at: propTypes.string,
+        thumb_url: propTypes.string,
         question: propTypes.string,
         choices: propTypes.arrayOf(
           propTypes.shape({

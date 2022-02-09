@@ -37,6 +37,26 @@ class HttpClient {
       `Couldn't post data to server: ${response.status}`,
     );
   }
+
+  async put(path) {
+    const response = await fetch(`${this.baseURL}${path}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(),
+    });
+
+    const body = await response.json();
+
+    if (response.ok) {
+      return body;
+    }
+
+    throw new Error(
+      `Couldn't put data to server: ${response.status}`,
+    );
+  }
 }
 
 export default HttpClient;
