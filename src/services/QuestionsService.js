@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import HttpClient from './utils/HttpClient';
 
 class QuestionsService {
@@ -10,10 +11,18 @@ class QuestionsService {
   }
 
   async createQuestion({
-    question, firstChoice, secondChoice, thirdChoice, fourthChoice,
+    id, question, choices,
   }) {
     return this.httpClient.post('/questions', {
-      question, firstChoice, secondChoice, thirdChoice, fourthChoice,
+      id, question, choices,
+    });
+  }
+
+  async updateQuestion({
+    id, image_url, published_at, thumb_url, question, choices,
+  }) {
+    return this.httpClient.put(`/questions/${id}`, {
+      id, image_url, published_at, thumb_url, question, choices,
     });
   }
 }
