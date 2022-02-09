@@ -139,8 +139,16 @@ export default function QuestionListScreen() {
                 </div>
               </div>
               <div className="actions">
-                <Link to={`/questions/${question.id}`}>
-                  <img src={edit} alt="Edit" />
+                <Link to={
+                  {
+                    pathname: `/questions/${question.id}`,
+                    state: {
+                      item: question,
+                    },
+                  }
+                }
+                >
+                  <img src={edit} alt="Detail Screen" />
                 </Link>
                 <button
                   type="button"
