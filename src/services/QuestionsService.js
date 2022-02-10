@@ -25,6 +25,14 @@ class QuestionsService {
       id, image_url, published_at, thumb_url, question, choices,
     });
   }
+
+  async shareQuestion(destinationEmail, url) {
+    console.log('O que está chegando no método:', {
+      destinationEmail,
+      url,
+    });
+    return this.httpClient.post(`/share?destination_email=${destinationEmail}&content_url=${url}`);
+  }
 }
 
 export default new QuestionsService();

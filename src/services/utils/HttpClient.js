@@ -18,16 +18,17 @@ class HttpClient {
     );
   }
 
-  async post(path, data) {
+  async post(path) {
     const response = await fetch(`${this.baseURL}${path}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(),
     });
 
     const body = await response.json();
+    console.log('O que chega no backend:', body);
 
     if (response.ok) {
       return body;
