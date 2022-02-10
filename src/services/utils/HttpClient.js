@@ -18,6 +18,20 @@ class HttpClient {
     );
   }
 
+  async getById(path) {
+    const response = await fetch(`${this.baseURL}${path}`);
+
+    const body = await response.json();
+
+    if (response.ok) {
+      return body;
+    }
+
+    throw new Error(
+      `Couldn't get data from server: ${response.status}`,
+    );
+  }
+
   async post(path) {
     const response = await fetch(`${this.baseURL}${path}`, {
       method: 'POST',
@@ -28,7 +42,6 @@ class HttpClient {
     });
 
     const body = await response.json();
-    console.log('O que chega no backend:', body);
 
     if (response.ok) {
       return body;
