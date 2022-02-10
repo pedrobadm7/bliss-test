@@ -1,7 +1,10 @@
 /* eslint-disable react/destructuring-assignment */
-import propTypes from 'prop-types';
-import { useState } from 'react';
+
+import { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 import Button from '../../components/Button';
+import Loader from '../../components/Loader';
 import Modal from '../../components/Modal';
 import PageHeader from '../../components/PageHeader';
 import { useModal } from '../../hooks/useModal';
@@ -9,11 +12,33 @@ import QuestionsService from '../../services/QuestionsService';
 
 import * as S from './styles';
 
-export default function DetailScreen(props) {
-  const { item } = props.location.state;
+export default function DetailScreen() {
+  const { id } = useParams();
+  const [question, setQuestion] = useState({});
 
-  const [getChoices, setGetChoices] = useState([...item.choices]);
+  const [getChoices, setGetChoices] = useState([]);
   const [isVoted, setIsVoted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const loadQuestionById = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const questionById = await QuestionsService.listQuestionById(id);
+
+      setQuestion(questionById);
+      setGetChoices([...questionById.choices]);
+    } catch (error) {
+      return;
+    } finally {
+      setIsLoading(false);
+    }
+  }, [id]);
+
+  console.log({ question });
+
+  useEffect(() => {
+    loadQuestionById();
+  }, [loadQuestionById]);
 
   const { isShown, toggle } = useModal();
 
@@ -31,7 +56,7 @@ export default function DetailScreen(props) {
         return choice;
       });
       QuestionsService.updateQuestion({
-        ...item,
+        ...question,
         choices: newChoices,
       });
       return newChoices;
@@ -39,59 +64,42 @@ export default function DetailScreen(props) {
   }
 
   return (
-    <S.Container isShown={isShown}>
-      <Modal
-        title="Share with your friends!"
-        isShown={isShown}
-        hide={toggle}
-        buttonLabel="Share!"
+    <>
+      <Loader isLoading={isLoading} />
+      {!isLoading && (
+        <S.Container isShown={isShown}>
+          <Modal
+            title="Share with your friends!"
+            isShown={isShown}
+            hide={toggle}
+            buttonLabel="Share!"
+          />
 
-      />
-
-      <PageHeader title={item.question} />
-      {getChoices.map((choice) => (
-        <S.Card>
-          <Button
-            type="button"
-            onClick={() => handleVote(choice.choice)}
-            disabled={
+          <PageHeader title={question.question} />
+          {getChoices.map((choice) => (
+            <S.Card>
+              <Button
+                type="button"
+                onClick={() => handleVote(choice.choice)}
+                disabled={
             isVoted
           }
-          >
-            {choice.choice}
-          </Button>
-          <p>
-            Number of votes:
-            {' '}
-            {choice.votes}
-          </p>
-        </S.Card>
-      ))}
+              >
+                {choice.choice}
+              </Button>
+              <p>
+                Number of votes:
+                {' '}
+                {choice.votes}
+              </p>
+            </S.Card>
+          ))}
 
-      <Button type="button" onClick={toggle}>
-        Share screen
-      </Button>
-    </S.Container>
+          <Button type="button" onClick={toggle}>
+            Share screen
+          </Button>
+        </S.Container>
+      )}
+    </>
   );
 }
-
-DetailScreen.propTypes = {
-  location: propTypes.shape({
-    state: propTypes.shape({
-      item: propTypes.shape({
-        id: propTypes.number,
-        image_url: propTypes.string,
-        published_at: propTypes.string,
-        thumb_url: propTypes.string,
-        question: propTypes.string,
-        choices: propTypes.arrayOf(
-          propTypes.shape({
-            choice: propTypes.string,
-            votes: propTypes.number,
-          }),
-        ),
-      }),
-    }),
-  }).isRequired,
-
-};
