@@ -1,25 +1,40 @@
 import ReactDOM from 'react-dom';
-
 import PropTypes from 'prop-types';
 import * as S from './styles';
 
+import Input from '../Input';
+import FormGroup from '../FormGroup';
+
 import Button from '../Button';
 
-export default function Modal({ danger }) {
-  return ReactDOM.createPortal(
+function Modal({
+  danger, title, isShown, hide, buttonLabel,
+}) {
+  const currentURL = window.location.href;
+
+  return isShown && ReactDOM.createPortal(
     <S.Overlay>
       <S.Container danger={danger}>
-        <h1>Modal title</h1>
-        <p>Modal body</p>
+        <h1>{title}</h1>
 
-        <S.Footer>
-          <button type="button" className="cancel-button">
-            Cancel
-          </button>
-          <Button type="button" danger={danger}>
-            Delete
-          </Button>
-        </S.Footer>
+        <S.Form>
+          <FormGroup>
+            <Input placeholder="Link" value={currentURL} disabled />
+          </FormGroup>
+
+          <FormGroup>
+            <Input placeholder="Email" />
+          </FormGroup>
+
+          <S.Footer>
+            <button type="button" className="cancel-button" onClick={hide}>
+              Cancel
+            </button>
+            <Button type="submit">
+              {buttonLabel}
+            </Button>
+          </S.Footer>
+        </S.Form>
 
       </S.Container>
     </S.Overlay>,
@@ -27,8 +42,15 @@ export default function Modal({ danger }) {
   );
 }
 
+export default Modal;
+
 Modal.propTypes = {
   danger: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+  isShown: PropTypes.bool.isRequired,
+  hide: PropTypes.bool.isRequired,
+  buttonLabel: PropTypes.string.isRequired,
+
 };
 
 Modal.defaultProps = {
