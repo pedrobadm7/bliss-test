@@ -18,13 +18,27 @@ class HttpClient {
     );
   }
 
-  async post(path, data) {
+  async getById(path) {
+    const response = await fetch(`${this.baseURL}${path}`);
+
+    const body = await response.json();
+
+    if (response.ok) {
+      return body;
+    }
+
+    throw new Error(
+      `Couldn't get data from server: ${response.status}`,
+    );
+  }
+
+  async post(path) {
     const response = await fetch(`${this.baseURL}${path}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(),
     });
 
     const body = await response.json();

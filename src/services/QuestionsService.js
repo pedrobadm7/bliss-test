@@ -10,6 +10,10 @@ class QuestionsService {
     return this.httpClient.get(`/questions?limit=${LIMIT}&offset=${OFF_SET}&filter=${searchTerm}`, '/health');
   }
 
+  async listQuestionById(id) {
+    return this.httpClient.getById(`/questions/${id}`, '/health');
+  }
+
   async createQuestion({
     id, question, choices,
   }) {
@@ -24,6 +28,10 @@ class QuestionsService {
     return this.httpClient.put(`/questions/${id}`, {
       id, image_url, published_at, thumb_url, question, choices,
     });
+  }
+
+  async shareQuestion(destinationEmail, url) {
+    return this.httpClient.post(`/share?destination_email=${destinationEmail}&content_url=${url}`);
   }
 }
 

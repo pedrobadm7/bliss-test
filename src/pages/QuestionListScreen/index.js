@@ -142,9 +142,6 @@ export default function QuestionListScreen() {
                 <Link to={
                   {
                     pathname: `/questions/${question.id}`,
-                    state: {
-                      item: question,
-                    },
                   }
                 }
                 >
