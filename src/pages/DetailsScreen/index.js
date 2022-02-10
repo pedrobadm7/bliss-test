@@ -2,7 +2,9 @@
 import propTypes from 'prop-types';
 import { useState } from 'react';
 import Button from '../../components/Button';
+import Modal from '../../components/Modal';
 import PageHeader from '../../components/PageHeader';
+import { useModal } from '../../hooks/useModal';
 import QuestionsService from '../../services/QuestionsService';
 
 import * as S from './styles';
@@ -12,6 +14,8 @@ export default function DetailScreen(props) {
 
   const [getChoices, setGetChoices] = useState([...item.choices]);
   const [isVoted, setIsVoted] = useState(false);
+
+  const { isShown, toggle } = useModal();
 
   function handleVote(choiceName) {
     setGetChoices((prevChoices) => {
@@ -35,7 +39,15 @@ export default function DetailScreen(props) {
   }
 
   return (
-    <S.Container>
+    <S.Container isShown={isShown}>
+      <Modal
+        title="Share with your friends!"
+        isShown={isShown}
+        hide={toggle}
+        buttonLabel="Share!"
+
+      />
+
       <PageHeader title={item.question} />
       {getChoices.map((choice) => (
         <S.Card>
@@ -56,10 +68,9 @@ export default function DetailScreen(props) {
         </S.Card>
       ))}
 
-      <Button type="button">
+      <Button type="button" onClick={toggle}>
         Share screen
       </Button>
-
     </S.Container>
   );
 }
@@ -82,4 +93,5 @@ DetailScreen.propTypes = {
       }),
     }),
   }).isRequired,
+
 };

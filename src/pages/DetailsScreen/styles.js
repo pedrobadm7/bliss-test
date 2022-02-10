@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-y: hidden;
+  position: ${({ isShown }) => (isShown ? 'fixed' : 'relative')};
 `;
 
 export const Card = styled.div`
