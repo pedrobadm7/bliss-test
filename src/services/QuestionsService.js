@@ -10,6 +10,10 @@ class QuestionsService {
     return this.httpClient.get(`/questions?limit=${LIMIT}&offset=${OFF_SET}&filter=${searchTerm}`, '/health');
   }
 
+  async listQuestionById(id) {
+    return this.httpClient.getById(`/questions/${id}`, '/health');
+  }
+
   async createQuestion({
     id, question, choices,
   }) {
@@ -27,10 +31,6 @@ class QuestionsService {
   }
 
   async shareQuestion(destinationEmail, url) {
-    console.log('O que está chegando no método:', {
-      destinationEmail,
-      url,
-    });
     return this.httpClient.post(`/share?destination_email=${destinationEmail}&content_url=${url}`);
   }
 }
