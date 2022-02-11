@@ -27,4 +27,4 @@ This is just a subset of what's in the `package.json` file.
 
 This is essentially a single-page app, with the main page located at `src/pages/QuestionListScreen/index.js`. That page renders `Question List Screen`, which renders the page with all questions. 
 
-# Have a happy hacking! :)
+Happy coding!
