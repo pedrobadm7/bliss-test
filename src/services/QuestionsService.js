@@ -4,9 +4,8 @@ import HttpClient from './utils/HttpClient';
 
 class QuestionsService {
   constructor() {
-    console.log(env);
-    // const API_URL = env.BASE_API_URL;
-    this.httpClient = new HttpClient('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com');
+    const API_URL = env.BASE_API_URL;
+    this.httpClient = new HttpClient(API_URL);
   }
 
   async listQuestions(LIMIT, OFF_SET, searchTerm = '') {
