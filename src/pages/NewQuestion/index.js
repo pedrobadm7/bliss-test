@@ -1,5 +1,5 @@
-import PageHeader from '../../components/PageHeader';
-import QuestionForm from '../../components/QuestionForm';
+import PageHeader from '../../Components/PageHeader';
+import QuestionForm from '../../Components/QuestionForm';
 
 export default function NewQuestion() {
   return (
