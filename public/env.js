@@ -1,0 +1,3 @@
+window.env = {
+  BASE_API_URL: 'https://private-bbbe9-blissrecruitmentapi.apiary-mock.com',
+};
