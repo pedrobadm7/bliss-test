@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
-import env from 'react-dotenv';
+
 import HttpClient from './utils/HttpClient';
 
 class QuestionsService {
   constructor() {
-    const API_URL = env.BASE_API_URL;
-    this.httpClient = new HttpClient(API_URL);
+    this.httpClient = new HttpClient('https://private-bbbe9-blissrecruitmentapi.apiary-mock.com');
   }
 
   async listQuestions(LIMIT, OFF_SET, searchTerm = '') {
