@@ -34,8 +34,6 @@ export default function DetailScreen() {
     }
   }, [id]);
 
-  console.log({ question });
-
   useEffect(() => {
     loadQuestionById();
   }, [loadQuestionById]);

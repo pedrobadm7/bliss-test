@@ -9,6 +9,7 @@ import FormGroup from '../FormGroup';
 
 import Button from '../Button';
 import QuestionsService from '../../services/QuestionsService';
+import isEmailValid from '../../utils/isEmailValid';
 
 function Modal({
   danger, title, isShown, hide, buttonLabel,
@@ -22,18 +23,24 @@ function Modal({
     getErrorMessageByFieldName,
   } = useErrors();
 
-  const isFormValid = errors.length === 0 && email;
+  const isFormValid = errors.length === 0 && isEmailValid(email);
 
   const currentURL = window.location.href;
 
   function handleEmail(event) {
     setEmail(event.target.value);
 
-    if (!event.target.value) {
-      setError({ field: 'email', message: 'This field must be filled with an email' });
+    if ((event.target.value && !isEmailValid(event.target.value)) || !event.target.value) {
+      setError({ field: 'email', message: 'You should provide a valid email' });
     } else {
       removeError('email');
     }
+  }
+
+  function handleCancel() {
+    hide();
+    removeError('email');
+    setEmail('');
   }
 
   function handleSubmit(event) {
@@ -58,7 +65,7 @@ function Modal({
           </FormGroup>
 
           <S.Footer>
-            <button type="button" className="cancel-button" onClick={hide}>
+            <button type="button" className="cancel-button" onClick={handleCancel}>
               Cancel
             </button>
             <Button type="submit" disabled={!isFormValid}>
