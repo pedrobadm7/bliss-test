@@ -4,10 +4,14 @@ import { Link } from 'react-router-dom';
 import {
   useEffect, useState, useMemo, useCallback,
 } from 'react';
+
+import { Offline, Online } from 'react-detect-offline';
+
 import * as S from './styles';
 
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
+import wifi from '../../assets/images/icons/wifi.svg';
 import sad from '../../assets/images/icons/sad.svg';
 import box from '../../assets/images/icons/box.svg';
 import magnifierQuestion from '../../assets/images/icons/magnifierQuestion.svg';
@@ -56,19 +60,31 @@ export default function QuestionListScreen() {
   return (
     <S.Container>
       <Loader isLoading={isLoading} />
+      <Offline>
+        <S.ErrorContainer>
+          <img src={wifi} alt="Wifi" />
 
-      {questions.length > 0 && (
-      <InputSearchContainer
-        value={searchTerm}
-        onChange={(search) => setSearchTerm(search)}
-        questions={questions}
-        filteredQuestions={filteredQuestions}
-      />
+          <div className="details">
 
-      )}
+            <strong>It looks like you lost your internet connection</strong>
 
-      <S.Header
-        justifyContent={
+            <Button type="button" onClick={handleTryAgain}>Try again</Button>
+          </div>
+        </S.ErrorContainer>
+      </Offline>
+      <Online>
+        {questions.length > 0 && (
+        <InputSearchContainer
+          value={searchTerm}
+          onChange={(search) => setSearchTerm(search)}
+          questions={questions}
+          filteredQuestions={filteredQuestions}
+        />
+
+        )}
+
+        <S.Header
+          justifyContent={
           hasError
             ? 'flex-end'
             : (
@@ -77,17 +93,17 @@ export default function QuestionListScreen() {
                 : 'center'
             )
         }
-      >
-        {(!hasError && questions.length > 0) && (
-        <strong>
-          {filteredQuestions.length}
-          {filteredQuestions.length === 1 ? ' question' : ' questions'}
-        </strong>
-        )}
-        <Link to="/new">New Question</Link>
-      </S.Header>
+        >
+          {(!hasError && questions.length > 0) && (
+          <strong>
+            {filteredQuestions.length}
+            {filteredQuestions.length === 1 ? ' question' : ' questions'}
+          </strong>
+          )}
+          <Link to="/new">New Question</Link>
+        </S.Header>
 
-      {hasError && (
+        {hasError && (
         <S.ErrorContainer>
           <img src={sad} alt="Sad" />
 
@@ -98,9 +114,9 @@ export default function QuestionListScreen() {
             <Button type="button" onClick={handleTryAgain}>Try again</Button>
           </div>
         </S.ErrorContainer>
-      )}
+        )}
 
-      {!hasError && (
+        {!hasError && (
         <>
           {questions.length < 1 && !isLoading && (
           <S.EmptyListContainer>
@@ -156,7 +172,8 @@ export default function QuestionListScreen() {
             </S.Card>
           ))}
         </>
-      )}
+        )}
+      </Online>
 
     </S.Container>
   );
