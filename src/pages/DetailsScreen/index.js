@@ -3,10 +3,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import Button from '../../components/Button';
-import Loader from '../../components/Loader';
-import Modal from '../../components/Modal';
-import PageHeader from '../../components/PageHeader';
+import Button from '../../Components/Button';
+import Loader from '../../Components/Loader';
+import Modal from '../../Components/Modal';
+import PageHeader from '../../Components/PageHeader';
 import { useModal } from '../../hooks/useModal';
 import QuestionsService from '../../services/QuestionsService';
 

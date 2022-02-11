@@ -16,10 +16,10 @@ import sad from '../../assets/images/icons/sad.svg';
 import box from '../../assets/images/icons/box.svg';
 import magnifierQuestion from '../../assets/images/icons/magnifierQuestion.svg';
 
-import Loader from '../../components/Loader';
-import Button from '../../components/Button';
+import Loader from '../../Components/Loader';
+import Button from '../../Components/Button';
 import QuestionsService from '../../services/QuestionsService';
-import InputSearchContainer from '../../components/InputSearchContainer';
+import InputSearchContainer from '../../Components/InputSearchContainer';
 
 export default function QuestionListScreen() {
   const [questions, setQuestions] = useState([]);
