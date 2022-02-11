@@ -10,6 +10,8 @@ import PageHeader from '../../Components/PageHeader';
 import { useModal } from '../../hooks/useModal';
 import QuestionsService from '../../services/QuestionsService';
 
+import sad from '../../assets/images/icons/sad.svg';
+
 import * as S from './styles';
 
 export default function DetailScreen() {
@@ -19,16 +21,18 @@ export default function DetailScreen() {
   const [getChoices, setGetChoices] = useState([]);
   const [isVoted, setIsVoted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   const loadQuestionById = useCallback(async () => {
     try {
       setIsLoading(true);
       const questionById = await QuestionsService.listQuestionById(id);
 
+      setHasError(false);
       setQuestion(questionById);
       setGetChoices([...questionById.choices]);
-    } catch (error) {
-      return;
+    } catch {
+      setHasError(true);
     } finally {
       setIsLoading(false);
     }
@@ -37,6 +41,10 @@ export default function DetailScreen() {
   useEffect(() => {
     loadQuestionById();
   }, [loadQuestionById]);
+
+  function handleTryAgain() {
+    loadQuestionById();
+  }
 
   const { isShown, toggle } = useModal();
 
@@ -73,29 +81,45 @@ export default function DetailScreen() {
             buttonLabel="Share!"
           />
 
-          <PageHeader title={question.question} />
-          {getChoices.map((choice) => (
-            <S.Card>
-              <Button
-                type="button"
-                onClick={() => handleVote(choice.choice)}
-                disabled={
-            isVoted
-          }
-              >
-                {choice.choice}
-              </Button>
-              <p>
-                Number of votes:
-                {' '}
-                {choice.votes}
-              </p>
-            </S.Card>
-          ))}
+          {!hasError && (
+            <>
+              <PageHeader title={question.question} />
+              {getChoices.map((choice) => (
+                <S.Card>
+                  <Button
+                    type="button"
+                    onClick={() => handleVote(choice.choice)}
+                    disabled={isVoted}
+                  >
+                    {choice.choice}
+                  </Button>
+                  <p>
+                    Number of votes:
+                    {' '}
+                    {choice.votes}
+                  </p>
+                </S.Card>
+              ))}
 
-          <Button type="button" onClick={toggle}>
-            Share screen
-          </Button>
+              <Button type="button" onClick={toggle}>
+                Share screen
+              </Button>
+            </>
+
+          )}
+
+          {hasError && (
+          <S.ErrorContainer>
+            <img src={sad} alt="Sad" />
+
+            <div className="details">
+
+              <strong>Ooops, an error occurred while trying to find your questions</strong>
+
+              <Button type="button" onClick={handleTryAgain}>Try again</Button>
+            </div>
+          </S.ErrorContainer>
+          )}
         </S.Container>
       )}
     </>
