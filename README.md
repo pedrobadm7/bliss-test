@@ -1,4 +1,4 @@
-# <img src="src/assets/images/logo.svg"/>
+# <a href="https://bliss-test.vercel.app/" target="_blank"><img src="src/assets/images/logo.svg" target="_blank"/></a>
 
 A React Application which allows users to vote on questions, see how many people voted for each option, create new questions and share with their friends.
 
